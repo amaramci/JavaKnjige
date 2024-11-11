@@ -270,7 +270,7 @@ public class FormKnjiga extends javax.swing.JDialog {
 
     private void popuniSaAutorima() {
         jComboBoxAutor.removeAllItems();
-        List<Autor> autori = kontroler.getListaAutora();
+        List<Autor> autori = kontroler.getListaAutoraIzBaze();
         for (Autor autor : autori) {
             jComboBoxAutor.addItem(autor);
         }

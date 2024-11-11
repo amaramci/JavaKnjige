@@ -24,7 +24,8 @@ public class GlavnaForma extends javax.swing.JFrame {
     public GlavnaForma() {
         initComponents();
         kontroler = Controler.getInstance();
-        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.getListaKnjiga());
+        // ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.getListaKnjiga());
+        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitajListuKnjigaIzBaze());
         jTableKnjige.setModel(modelTabele);
     }
 
@@ -195,8 +196,10 @@ public class GlavnaForma extends javax.swing.JFrame {
         if (selektovaniRed == -1) {
             JOptionPane.showMessageDialog(this, "Izaberi sta brises", "upozorenje", JOptionPane.WARNING_MESSAGE);
         } else {
+            ModelTabeleKnjige mtk = (ModelTabeleKnjige) jTableKnjige.getModel();
+            int id = mtk.getListaKnjiga().get(selektovaniRed).getId();
             Controler kontroler = Controler.getInstance();
-            kontroler.obrisiKnjigu(selektovaniRed);
+            kontroler.obrisiKnjigu(id);
 
             osveziTabelu();
         }
@@ -276,7 +279,10 @@ public class GlavnaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void osveziTabelu() {
-        ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
-        modelTabele.osveziPodatke();
+        ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitajListuKnjigaIzBaze());
+        jTableKnjige.setModel(modelTabele);
+
+      //  ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
+        //modelTabele.osveziPodatke();
     }
 }
