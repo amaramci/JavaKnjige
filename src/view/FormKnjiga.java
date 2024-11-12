@@ -206,6 +206,8 @@ public class FormKnjiga extends javax.swing.JDialog {
         knjigaZaIzmenu.setNaslov(naziv);
         knjigaZaIzmenu.setZanr(zanr);
         
+        kontroler.azurirajKnjigu(knjigaZaIzmenu);
+        
         gf.osveziTabelu();
         this.dispose();
     }//GEN-LAST:event_jButtonIzmeniActionPerformed

@@ -93,11 +93,51 @@ public class DBBroker {
             PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
             ps.setInt(1, id);
             ps.executeUpdate();
-            
+
             Konekcija.getInstance().getConnection().commit();
         } catch (SQLException ex) {
             Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public void dodajKnjiguIzBaze(Knjiga novaKnjiga) {
+        try {
+            String upit = "INSERT INTO knjiga (id, naslov, autorId, godinaIzdanja, ISBN, zanr) "
+                    + "VALUES(?,?,?,?,?,?)";
+            PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
+            ps.setInt(1, novaKnjiga.getId());
+            ps.setString(2, novaKnjiga.getNaslov());
+            ps.setInt(3, novaKnjiga.getAutor().getId());
+            ps.setInt(4, novaKnjiga.getGodinaIzdanja());
+            ps.setString(5, novaKnjiga.getISBN());
+            ps.setString(6, String.valueOf(novaKnjiga.getZanr()));
+
+            ps.executeUpdate();
+            Konekcija.getInstance().getConnection().commit();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void azurirajKnjiguIzBaze(Knjiga knjigaZaIzmenu) {
+        try {
+            String upit = "UPDATE knjiga SET naslov=?, autorId=?, godinaIzdanja=?, ISBN=?, zanr=? WHERE id=?";
+            PreparedStatement ps = Konekcija.getInstance().getConnection().prepareStatement(upit);
+
+            ps.setString(1, knjigaZaIzmenu.getNaslov());
+            ps.setInt(2, knjigaZaIzmenu.getAutor().getId());
+            ps.setInt(3, knjigaZaIzmenu.getGodinaIzdanja());
+            ps.setString(4, knjigaZaIzmenu.getISBN());
+            ps.setString(5, String.valueOf(knjigaZaIzmenu.getZanr()));
+            ps.setInt(6, knjigaZaIzmenu.getId());
+
+            ps.executeUpdate();
+            Konekcija.getInstance().getConnection().commit();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBBroker.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

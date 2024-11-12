@@ -74,7 +74,8 @@ public class Controler {
     }
 
     public void dodajKnjigu(Knjiga novaKnjiga) {
-        listaKnjiga.add(novaKnjiga);
+        dbb.dodajKnjiguIzBaze(novaKnjiga);
+       // listaKnjiga.add(novaKnjiga);
     }
 
     public List<Knjiga> ucitajListuKnjigaIzBaze() {
@@ -83,6 +84,10 @@ public class Controler {
 
     public List<Autor> getListaAutoraIzBaze() {
         return dbb.getListaAutoraIzBaze();
+    }
+
+    public void azurirajKnjigu(Knjiga knjigaZaIzmenu) {
+        dbb.azurirajKnjiguIzBaze(knjigaZaIzmenu);
     }
 
 }

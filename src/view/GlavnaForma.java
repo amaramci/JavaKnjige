@@ -218,7 +218,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Izaberi sta menjas", "upozorenje", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Knjiga sleektovana = kontroler.getListaKnjiga().get(selektovaniRed);
+        Knjiga sleektovana = kontroler.ucitajListuKnjigaIzBaze().get(selektovaniRed);
 
         FormKnjiga fk = new FormKnjiga(this, true, sleektovana);
         fk.setVisible(true);
