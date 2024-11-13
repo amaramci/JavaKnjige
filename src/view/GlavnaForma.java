@@ -5,6 +5,7 @@
 package view;
 
 import controler.Controler;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Knjiga;
@@ -108,6 +109,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         jCheckBoxNaucniCasopis.setText("Naucni casopis");
 
         jButtonFiltriraj.setText("Filtritaj");
+        jButtonFiltriraj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFiltrirajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,40 +232,18 @@ public class GlavnaForma extends javax.swing.JFrame {
         osveziTabelu();
     }//GEN-LAST:event_jButtonIzmeniActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GlavnaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GlavnaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GlavnaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GlavnaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonFiltrirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrirajActionPerformed
+        String naziv = jTextFieldNaziv.getText();
+        String autor = jTextFieldAutor.getText();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GlavnaForma().setVisible(true);
-            }
-        });
-    }
+        List<Knjiga> filtriranaLista = Controler.getInstance().filtriraj(naziv, autor);
+
+        List<Knjiga> filtriranaListaBaza = Controler.getInstance().filtrirajBaza(naziv, autor);
+
+        ModelTabeleKnjige mtk = new ModelTabeleKnjige(filtriranaListaBaza);
+        jTableKnjige.setModel(mtk);
+    }//GEN-LAST:event_jButtonFiltrirajActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDodaj;
@@ -282,7 +266,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         ModelTabeleKnjige modelTabele = new ModelTabeleKnjige(kontroler.ucitajListuKnjigaIzBaze());
         jTableKnjige.setModel(modelTabele);
 
-      //  ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
+        //  ModelTabeleKnjige modelTabele = (ModelTabeleKnjige) jTableKnjige.getModel();
         //modelTabele.osveziPodatke();
     }
 }
